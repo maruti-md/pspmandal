@@ -1,0 +1,43 @@
+.hero-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 5rem 2rem;
+  color: white;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    padding-top: 6rem;
+  }
+
+  .hero-content {
+    margin-bottom: 2rem;
+  }
+}
+
+.hot-tours {
+  width: 340px;
+  max-height: 80vh;
+  border-radius: 16px;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .hot-tours {
+    width: 100%;
+  }
+}

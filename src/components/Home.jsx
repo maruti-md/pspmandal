@@ -52,6 +52,8 @@ const hotTours = [
   },
 ];
 
+
+
 export default function HomePage() {
   return (
     <Box sx={{ position: 'relative', height: '100vh', width: '100%', color: '#fff' }}>
@@ -98,18 +100,20 @@ export default function HomePage() {
       <Paper
         elevation={10}
         sx={{
-          position: 'absolute',
+          position:  { xs: 'static', md: 'absolute' },
           top: '10%',
           right: '3%',
           width: 320,
+          mx: { xs: 'auto', md: 0 }, 
           borderRadius: 4,
           p: 2,
           bgcolor: 'rgba(0, 0, 0, 0.7)',
           color: 'white',
+           mt: { xs: 2, md: 0 },
         }}
       >
         <Typography variant="h6" gutterBottom>
-          Hot Tours
+          Recent Post
         </Typography>
         <List>
           {hotTours.map((tour, idx) => (

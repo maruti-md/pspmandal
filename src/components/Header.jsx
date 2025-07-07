@@ -18,7 +18,7 @@ import {
   Container
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { Brightness4, Brightness7,ExpandLess,ExpandMore } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -73,11 +73,21 @@ export default function Header({ toggleColorMode }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [currentMenu, setCurrentMenu] = React.useState(null);
   const [hovering, setHovering] = React.useState(false);
+  const [mobileOpenMenus, setMobileOpenMenus] = React.useState({});
+  
+
 
 
  const handleMenuOpen = (event, label) => {
   setAnchorEl(event.currentTarget);
   setCurrentMenu(label);
+};
+
+const toggleMobileMenu = (label) => {
+  setMobileOpenMenus((prev) => ({
+    ...prev,
+    [label]: !prev[label],
+  }));
 };
 
 
@@ -118,45 +128,38 @@ const handleMenuClose = () => {
                 <List sx={{ width: 250, bgcolor: theme.palette.primary.main, color: theme.palette.primary.contrastText }}>
   {menuItems.map((item, idx) => (
     <React.Fragment key={idx}>
-      <ListItem disablePadding>
-        <ListItem
-          button
-          component={item.link ? RouterLink : 'div'}
-          to={item.link || '#'}
-        >
-          <ListItemText
-            primary={
-              item.icon ? (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {item.icon}
-                  <span style={{ marginLeft: 8 }}>{item.label}</span>
-                </Box>
-              ) : (
-                item.label
-              )
-            }
-            primaryTypographyProps={{ color: 'inherit' }}
-          />
-        </ListItem>
+      <ListItem button onClick={() => item.submenu ? toggleMobileMenu(item.label) : setDrawerOpen(false)} component={item.link && !item.submenu ? RouterLink : 'div'} to={item.link || '#'}>
+        <ListItemText
+          primary={
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                {item.icon && <Box sx={{ mr: 1 }}>{item.icon}</Box>}
+                {item.label}
+              </Box>
+              {item.submenu && (
+                mobileOpenMenus[item.label] ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />
+              )}
+            </Box>
+          }
+        />
       </ListItem>
 
-      {item.submenu?.map((sub, subIdx) => (
-        <ListItem key={`${idx}-${subIdx}`} disablePadding sx={{ pl: 4 }}>
-          <ListItem
-            button
-            component={RouterLink}
-            to={sub.link}
-          >
-            <ListItemText
-              primary={sub.label}
-              primaryTypographyProps={{ color: 'inherit' }}
-            />
-          </ListItem>
+      {item.submenu && mobileOpenMenus[item.label] && item.submenu.map((sub, subIdx) => (
+        <ListItem
+          key={`${idx}-${subIdx}`}
+          button
+          component={RouterLink}
+          to={sub.link}
+          sx={{ pl: 4 }}
+          onClick={() => setDrawerOpen(false)}
+        >
+          <ListItemText primary={sub.label} />
         </ListItem>
       ))}
     </React.Fragment>
   ))}
 </List>
+
 
               </Drawer>
             </>

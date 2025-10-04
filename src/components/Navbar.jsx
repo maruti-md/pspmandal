@@ -3,9 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, Popper, Paper, Grid, MenuItem, IconButton, List, ListItemButton, ListItemText, Collapse, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { BorderBottom, ExpandLess, ExpandMore } from '@mui/icons-material';
+import { BorderBottom, ExpandLess, ExpandMore,KeyboardArrowDown } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Logo from './Logo';
 
 
 function MegaMenuButton({ label, sections }) {
@@ -17,8 +18,24 @@ function MegaMenuButton({ label, sections }) {
 
   return (
     <div onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <Button ref={anchorRef} color="inherit">{label}</Button>
-      <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" disablePortal>
+      <Button ref={anchorRef} color="inherit"
+      endIcon={<KeyboardArrowDown
+            sx={{
+              transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: '0.3s',
+            }}
+          />
+        }
+        sx={{
+          color: 'inherit',
+          '&:hover': {
+            color: '#42bd73ff',
+            borderBottom: '1px solid #42bd73ff',
+          },
+        }}
+
+      >{label}</Button>
+      <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" disablePortal sx={{ zIndex: 2000 }} >
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: open ? 1 : 0, y: open ? 0 : -10 }}
@@ -89,12 +106,13 @@ export default function Navbar() {
 
 
   return (
-    <AppBar position="static" sx={{ bgcolor: '#1e1e1e' }}>
+    <AppBar position="static" sx={{ bgcolor: '#1e1e1e', py: 1.5, zIndex: (theme) => theme.zIndex.drawer + 1  }}>
       <Box sx={{ flexGrow: 1 }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>School NGO</Link>
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Logo />
+          </Box>
+
 
           {/* Desktop Menu */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
@@ -116,13 +134,13 @@ export default function Navbar() {
               <MenuIcon />
             </IconButton>
             {mobileAnchorEl && (
-              <Paper sx={{ position: 'absolute', top: '56px', right: 0, width: 250, bgcolor: '#1e1e1e', color: 'white', zIndex: 1300 }} onBlur={handleMobileMenuClose} tabIndex={0}>
+              <Paper sx={{ position: 'absolute', top: '56px', right: 0, width: 250, bgcolor: '#1e1e1e', color: 'white', zIndex: 1300 }}  tabIndex={0}>
                 <List>
                   <ListItemButton component={Link} to="/about" onClick={handleMobileMenuClose}><ListItemText primary="About" /></ListItemButton>
 
                   <ListItemButton onClick={toggleProjects}>
                     <ListItemText primary="Projects" />
-                    {openProjects ? <ExpandLess /> : <ExpandMore />}
+                    {openProjects ? <ExpandLess /> : <ExpandMore />}  
                   </ListItemButton>
                   <Collapse in={openProjects} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>

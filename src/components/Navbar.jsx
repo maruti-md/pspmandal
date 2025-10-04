@@ -106,7 +106,9 @@ export default function Navbar() {
 
 
   return (
-    <AppBar position="static" sx={{ bgcolor: '#1e1e1e', py: 1.5, zIndex: (theme) => theme.zIndex.drawer + 1  }}>
+    <AppBar position="static" sx={{ bgcolor: '#1e1e1e', py: 1.5, zIndex: (theme) => theme.zIndex.drawer + 1, 
+      // width:{ xs: '90%', sm: '100%', md: '100%' }
+     }}>
       <Box sx={{ flexGrow: 1 }}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>

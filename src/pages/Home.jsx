@@ -5,7 +5,7 @@ import HomeHeroSection from "../components/HomeHeroSection";
 
 export default function Home() {
   return (
-    <Box>
+    <Box sx={{ width: { xs: '100%', sm: '100%', md: '100%' } }}>
       {/* Hero + Recent Posts Section */}
       <HomeHeroSection />
 

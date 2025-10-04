@@ -11,6 +11,7 @@ export default function HomeHeroSection() {
         bgcolor: "linear-gradient(to right, #003f47, #145858)",
         py: 0,
         px: { xs: 2, md: 3 },
+        // width: { xs: '90%', sm: '100%', md: '100%' },
       }}
     >
       <Grid container spacing={4} columns={12}>

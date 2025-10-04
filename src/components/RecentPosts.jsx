@@ -29,18 +29,25 @@ export default function RecentPosts() {
         <Card key={idx} 
         sx={{ 
         height: 100, 
-        width: "100%",
+        // width: "100%",
+         width:{ xs: '90%', sm: '100%', md: '100%' },
         display: "flex", 
+        placeSelf: "center",
         mb: 2, 
         boxShadow: 3, 
         borderRadius: 2,
+        cursor: "pointer",
         ":hover": { 
-          boxShadow: 6, 
-          transform: "scale(1.1)",
+            md: {
+              boxShadow: 6, 
+              transform: "scale(1.1)",
+            }
         }
         }}>
           <CardMedia component="img" sx={{ width: 80 }} image={post.image} alt={post.title} />
-          <CardContent sx={{ p: 1, bgcolor: "#034e3cff" }}>
+          <CardContent sx={{ p: 1, 
+            bgcolor: "#034e3cff",
+             width:{ xs: '100%', sm: '100%', md: '100%' }, }}>
             <Typography variant="body2" sx={{ fontWeight: "500", color: "#ffffffff" }}>
               {post.title}
             </Typography>

@@ -1,24 +1,25 @@
-name: Deploy Vite React App to GitHub Pages
+name: Deploy Vite React app to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # run when pushing to main branch
+      - main   # deploy only when pushing to main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build project
         run: npm run build
@@ -28,3 +29,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          cname: ""   # optional: only if you don’t use custom domain

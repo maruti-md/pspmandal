@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   base: '/pspmandal',
+  build: {
+    chunkSizeWarningLimit: 1000, // You can adjust the limit as needed
+  },
 })

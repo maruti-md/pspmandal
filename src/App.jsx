@@ -11,6 +11,7 @@ import Events from "./pages/Events";
 import Donate from "./pages/Donate";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Footer from './components/Footer';
 
 // Placeholder pages
 // function Home() { return <Typography variant="h4">Welcome to Our NGO</Typography>; }
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
           </Routes>
+           <Footer />
         </Box>
       </Box>
     </Router>
